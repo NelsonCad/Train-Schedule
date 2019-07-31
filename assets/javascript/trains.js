@@ -1,3 +1,4 @@
+$(document).ready(function () {
 // Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyCezcaWLzFQUKIukuWYcnaND4MsxzN_H9I",
@@ -10,3 +11,40 @@ var firebaseConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+  let database = firebase.database();
+
+  $("#add-train-btn").on("click", function (){
+
+    //obtain train info
+    let trainNm = $("#train-name-input").val().trim();
+
+    let trainDest = $("#destination-input").val().trim();
+
+    let trainTime = $("#time-input").val().trim();
+
+    let trainFreq = $("#frequency").val().trim();
+
+    let newTrain = {
+        name: trainNm,
+        destination: trainDest,
+        time: trainTime,
+        frequency: trainFreq
+    };
+
+    database.ref().push(newTrain);
+
+    $("#train-name-input").val("");
+    $("#destination-input").val("");
+    $("#time-input").val("");
+    $("#frequency").val("");
+  });
+
+  database.ref().on("child_added", function (addedTrain) {
+
+
+    
+  });
+
+
+});
